@@ -3,6 +3,11 @@ import Layout from '@/components/Layout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import TextToSpeech from '@/components/tools/TextToSpeech';
+import VoiceCommands from '@/components/tools/VoiceCommands';
+import LiveCaptioning from '@/components/tools/LiveCaptioning';
+import TextSimplifier from '@/components/tools/TextSimplifier';
 import { 
   Volume2, 
   Eye, 
@@ -234,9 +239,64 @@ const AssistiveTools = () => {
         </div>
       </section>
 
-      {/* Tools Grid */}
+      {/* Interactive Tools Demo */}
       <section className="py-12 bg-gradient-soft">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">Try Our Tools Live</h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Experience the power of assistive technology with these interactive demos
+            </p>
+          </div>
+
+          <Tabs defaultValue="text-to-speech" className="w-full">
+            <TabsList className="grid w-full grid-cols-4 max-w-2xl mx-auto mb-8">
+              <TabsTrigger value="text-to-speech" className="flex items-center gap-2">
+                <Volume2 className="h-4 w-4" />
+                <span className="hidden sm:inline">Text-to-Speech</span>
+              </TabsTrigger>
+              <TabsTrigger value="voice-commands" className="flex items-center gap-2">
+                <Mic className="h-4 w-4" />
+                <span className="hidden sm:inline">Voice Commands</span>
+              </TabsTrigger>
+              <TabsTrigger value="live-captioning" className="flex items-center gap-2">
+                <Captions className="h-4 w-4" />
+                <span className="hidden sm:inline">Live Captions</span>
+              </TabsTrigger>
+              <TabsTrigger value="text-simplifier" className="flex items-center gap-2">
+                <FileText className="h-4 w-4" />
+                <span className="hidden sm:inline">Text Simplifier</span>
+              </TabsTrigger>
+            </TabsList>
+
+            <div className="flex justify-center">
+              <TabsContent value="text-to-speech">
+                <TextToSpeech />
+              </TabsContent>
+              <TabsContent value="voice-commands">
+                <VoiceCommands />
+              </TabsContent>
+              <TabsContent value="live-captioning">
+                <LiveCaptioning />
+              </TabsContent>
+              <TabsContent value="text-simplifier">
+                <TextSimplifier />
+              </TabsContent>
+            </div>
+          </Tabs>
+        </div>
+      </section>
+
+      {/* Tools Grid */}
+      <section className="py-12 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">Complete Tools Library</h2>
+            <p className="text-xl text-muted-foreground">
+              Discover all available assistive tools and features
+            </p>
+          </div>
+          
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredTools.map((tool, index) => {
               const Icon = tool.icon;
@@ -289,7 +349,7 @@ const AssistiveTools = () => {
 
                     {/* Actions */}
                     <div className="flex space-x-2 pt-4">
-                      <Button variant="hero" size="sm" className="flex-1 group">
+                      <Button variant="default" size="sm" className="flex-1 group">
                         <Play className="h-4 w-4 group-hover:scale-110 transition-transform" />
                         Try Now
                       </Button>
