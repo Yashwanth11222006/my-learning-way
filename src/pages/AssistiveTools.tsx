@@ -1,13 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Layout from '@/components/Layout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Switch } from '@/components/ui/switch';
 import TextToSpeech from '@/components/tools/TextToSpeech';
 import VoiceCommands from '@/components/tools/VoiceCommands';
 import LiveCaptioning from '@/components/tools/LiveCaptioning';
 import TextSimplifier from '@/components/tools/TextSimplifier';
+import SpeechToText from '@/components/tools/SpeechToText'; // Added SpeechToText import
+import AccessibilitySettings from '@/components/tools/AccessibilitySettings'; // Added AccessibilitySettings import
+import SignLanguageTranslator from '@/components/SignLanguageTranslator'; // Added SignLanguageTranslator import
+import SignLanguageDetector from '@/components/SignLanguageDetector'; // Added SignLanguageDetector import
+import AdvancedSignLanguageDetector from '@/components/AdvancedSignLanguageDetector'; // Added AdvancedSignLanguageDetector import
 import { 
   Volume2, 
   Eye, 
@@ -25,16 +33,17 @@ import {
   Download,
   Star,
   Users,
-  CheckCircle
+  CheckCircle,
+  Hand
 } from 'lucide-react';
 
 const AssistiveTools = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
 
   const toolCategories = [
-    { id: 'all', label: 'All Tools', count: 12 },
+    { id: 'all', label: 'All Tools', count: 15 },
     { id: 'audio', label: 'Audio & Voice', count: 4 },
-    { id: 'visual', label: 'Visual Support', count: 3 },
+    { id: 'visual', label: 'Visual Support', count: 6 },
     { id: 'cognitive', label: 'Cognitive Aids', count: 3 },
     { id: 'navigation', label: 'Navigation', count: 2 }
   ];
@@ -87,6 +96,42 @@ const AssistiveTools = () => {
       users: '1.2M',
       status: 'popular',
       gradient: 'bg-gradient-primary'
+    },
+    {
+      id: 'sign-language-translator',
+      title: 'Sign Language Translator',
+      description: 'Convert text to sign language with visual guides and step-by-step instructions',
+      category: 'visual',
+      icon: Hand,
+      features: ['Multiple sign languages', 'Visual guides', 'Playback controls', 'Export options'],
+      rating: 4.9,
+      users: '1.1M',
+      status: 'new',
+      gradient: 'bg-gradient-accent'
+    },
+    {
+      id: 'sign-language-detector',
+      title: 'Sign Language Detector',
+      description: 'Use camera to detect sign language gestures and convert them to text in real-time',
+      category: 'visual',
+      icon: Eye,
+      features: ['Camera detection', 'Real-time conversion', 'Multiple languages', 'Confidence scoring'],
+      rating: 4.8,
+      users: '850K',
+      status: 'new',
+      gradient: 'bg-gradient-primary'
+    },
+    {
+      id: 'advanced-sign-detector',
+      title: 'Advanced Sign Detector',
+      description: 'Professional-grade sign language detection with MediaPipe integration and advanced analytics',
+      category: 'visual',
+      icon: Brain,
+      features: ['MediaPipe integration', 'Advanced analytics', 'Performance metrics', 'Multi-hand tracking'],
+      rating: 4.9,
+      users: '650K',
+      status: 'featured',
+      gradient: 'bg-gradient-secondary'
     },
     {
       id: 'sign-visuals',
@@ -250,10 +295,14 @@ const AssistiveTools = () => {
           </div>
 
           <Tabs defaultValue="text-to-speech" className="w-full">
-            <TabsList className="grid w-full grid-cols-4 max-w-2xl mx-auto mb-8">
+            <TabsList className="grid w-full grid-cols-9 max-w-7xl mx-auto mb-8">
               <TabsTrigger value="text-to-speech" className="flex items-center gap-2">
                 <Volume2 className="h-4 w-4" />
                 <span className="hidden sm:inline">Text-to-Speech</span>
+              </TabsTrigger>
+              <TabsTrigger value="speech-to-text" className="flex items-center gap-2">
+                <Mic className="h-4 w-4" />
+                <span className="hidden sm:inline">Speech-to-Text</span>
               </TabsTrigger>
               <TabsTrigger value="voice-commands" className="flex items-center gap-2">
                 <Mic className="h-4 w-4" />
@@ -267,11 +316,30 @@ const AssistiveTools = () => {
                 <FileText className="h-4 w-4" />
                 <span className="hidden sm:inline">Text Simplifier</span>
               </TabsTrigger>
+              <TabsTrigger value="sign-language-translator" className="flex items-center gap-2">
+                <Hand className="h-4 w-4" />
+                <span className="hidden sm:inline">Sign Language Translator</span>
+              </TabsTrigger>
+              <TabsTrigger value="sign-language-detector" className="flex items-center gap-2">
+                <Eye className="h-4 w-4" />
+                <span className="hidden sm:inline">Sign Detector</span>
+              </TabsTrigger>
+              <TabsTrigger value="advanced-sign-detector" className="flex items-center gap-2">
+                <Brain className="h-4 w-4" />
+                <span className="hidden sm:inline">Advanced Detector</span>
+              </TabsTrigger>
+              <TabsTrigger value="accessibility-settings" className="flex items-center gap-2">
+                <Settings className="h-4 w-4" />
+                <span className="hidden sm:inline">Settings</span>
+              </TabsTrigger>
             </TabsList>
 
             <div className="flex justify-center">
               <TabsContent value="text-to-speech">
                 <TextToSpeech />
+              </TabsContent>
+              <TabsContent value="speech-to-text">
+                <SpeechToText />
               </TabsContent>
               <TabsContent value="voice-commands">
                 <VoiceCommands />
@@ -281,6 +349,18 @@ const AssistiveTools = () => {
               </TabsContent>
               <TabsContent value="text-simplifier">
                 <TextSimplifier />
+              </TabsContent>
+              <TabsContent value="sign-language-translator">
+                <SignLanguageTranslator />
+              </TabsContent>
+              <TabsContent value="sign-language-detector">
+                <SignLanguageDetector />
+              </TabsContent>
+              <TabsContent value="advanced-sign-detector">
+                <AdvancedSignLanguageDetector />
+              </TabsContent>
+              <TabsContent value="accessibility-settings">
+                <AccessibilitySettings />
               </TabsContent>
             </div>
           </Tabs>
@@ -349,9 +429,39 @@ const AssistiveTools = () => {
 
                     {/* Actions */}
                     <div className="flex space-x-2 pt-4">
-                      <Button variant="default" size="sm" className="flex-1 group">
+                      <Button 
+                        variant="default" 
+                        size="sm" 
+                        className="flex-1 group"
+                        onClick={() => {
+                          if (tool.id === 'sign-language-translator') {
+                            window.location.href = '/sign-language';
+                          } else if (tool.id === 'sign-language-detector') {
+                            // Switch to the detector tab in the interactive tools section
+                            const detectorTab = document.querySelector('[value="sign-language-detector"]') as HTMLElement;
+                            if (detectorTab) {
+                              detectorTab.click();
+                              // Scroll to the interactive tools section
+                              document.querySelector('[data-tabs]')?.scrollIntoView({ behavior: 'smooth' });
+                            }
+                          } else if (tool.id === 'advanced-sign-detector') {
+                            // Switch to the advanced detector tab in the interactive tools section
+                            const advancedDetectorTab = document.querySelector('[value="advanced-sign-detector"]') as HTMLElement;
+                            if (advancedDetectorTab) {
+                              advancedDetectorTab.click();
+                              // Scroll to the interactive tools section
+                              document.querySelector('[data-tabs]')?.scrollIntoView({ behavior: 'smooth' });
+                            }
+                          } else {
+                            // Default behavior for other tools
+                            console.log(`Opening ${tool.title}`);
+                          }
+                        }}
+                      >
                         <Play className="h-4 w-4 group-hover:scale-110 transition-transform" />
-                        Try Now
+                        {tool.id === 'sign-language-translator' ? 'Open Translator' : 
+                         tool.id === 'sign-language-detector' ? 'Try Detector' :
+                         tool.id === 'advanced-sign-detector' ? 'Try Advanced' : 'Try Now'}
                       </Button>
                       <Button variant="outline" size="sm">
                         <Download className="h-4 w-4" />

@@ -9,7 +9,8 @@ import {
   Eye, 
   Mic, 
   GraduationCap, 
-  Settings 
+  Settings,
+  Hand
 } from 'lucide-react';
 
 interface NavbarProps {
@@ -23,6 +24,7 @@ const Navbar = ({ accessibilityMode }: NavbarProps) => {
   const navigationItems = [
     { href: '/assistive-tools', label: 'Assistive Tools', icon: Heart },
     { href: '/resources', label: 'Learning Resources', icon: GraduationCap },
+    { href: '/sign-language', label: 'Sign Language', icon: Hand },
     { href: '/careers', label: 'Career Support', icon: Settings },
     { href: '/community', label: 'Community', icon: Heart },
     { href: '/success-stories', label: 'Success Stories', icon: GraduationCap },

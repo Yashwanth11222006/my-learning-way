@@ -157,9 +157,9 @@ const Home = () => {
   ];
 
   return (
-    <Layout accessibilityMode={accessibilityMode}>
+    <Layout>
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-hero">
+      <section className="bg-gradient-hero py-20">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/20"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-32">
           <div className="text-center animate-fade-up">

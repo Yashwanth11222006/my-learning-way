@@ -4,16 +4,22 @@ import Footer from './Footer';
 
 interface LayoutProps {
   children: ReactNode;
-  accessibilityMode?: string;
 }
 
-const Layout = ({ children, accessibilityMode = 'standard' }: LayoutProps) => {
+const Layout = ({ children }: LayoutProps) => {
   return (
-    <div className="min-h-screen bg-background">
-      <Navbar accessibilityMode={accessibilityMode} />
-      <main className="pt-16">
+    <div className="min-h-screen flex flex-col">
+      {/* Skip link for keyboard navigation */}
+      <a href="#main-content" className="skip-link">
+        Skip to main content
+      </a>
+      
+      <Navbar />
+      
+      <main id="main-content" className="flex-1">
         {children}
       </main>
+      
       <Footer />
     </div>
   );
